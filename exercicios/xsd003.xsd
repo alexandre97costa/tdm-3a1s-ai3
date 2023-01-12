@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ipv.pt/tdm/2018/agenda" xmlns:a="http://www.ipv.pt/tdm/2018/agenda" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="agenda">
+		<xsd:complexType>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:element ref="a:entrada" />
+				<xsd:element ref="a:grupo" />
+			</xsd:choice>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:element name="grupo">
+		<xsd:complexType>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:element name="ref">
+					<xsd:complexType>
+						<xsd:attribute name="entref" type="xsd:string" use="required" />
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element ref="a:entrada" />
+			</xsd:choice>
+			<xsd:attribute name="gid" use="required" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:simpleType name="entidade">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="pessoa" />
+			<xsd:enumeration value="empresa" />
+			<xsd:enumeration value="familia" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:element name="entrada">
+		<xsd:complexType>
+			<xsd:choice minOccurs="0" maxOccurs="unbounded">
+				<xsd:element name="nome" type="xsd:string" />
+				<xsd:element name="email" type="xsd:string" minOccurs="0" maxOccurs="1" />
+				<xsd:element name="telefone" type="xsd:string" />
+			</xsd:choice>
+			<xsd:attribute name="tipo" type="a:entidade" use="optional" default="pessoa" />
+			<xsd:attribute name="id" use="required" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

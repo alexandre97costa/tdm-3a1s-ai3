@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script src='pessoas.js'></script>
+        <script>
+            var x = guardarPessoa("1", "Maria", "Viseu");
+            alert("XML com 1 Pessoa \n=================\n" + x);
+            var x2 = guardarPessoaAcrescentar(x, "13", "Manuel", "Lisboa");
+            alert("XML com 2 Pessoas \n=================\n" + x2);
+            alert("O nome da Pessoa com ID 13 é " + pesquisaNomePorId(x2, "13"));
+            alert("O morada da Pessoa com Nome Maria é " + pesquisaMoradaPorNome(x2, "Maria"));
+
+        </script>
+    </head>
+
+    <body>
+
+    </body>
+
+</html>

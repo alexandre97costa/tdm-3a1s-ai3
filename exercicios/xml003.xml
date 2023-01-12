@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:noticias 
+    xmlns:p="http://www.ipv.pt/pagina" 
+    xmlns:np="http://www.ipv.pt/noticiasprincipais" 
+    xmlns:nml="http://www.ipv.pt/noticiasmaislidas"
+    >
+    <np:noticia>
+        <np:titulo>Um titulo</np:titulo>
+        <np:data>2022/09/28</np:data>
+        <np:classificacao>4</np:classificacao>
+        <np:sumario>Um sumário</np:sumario>
+        <np:imagem>a</np:imagem>
+        <np:link>a</np:link>
+    </np:noticia>
+
+    <nml:noticia>
+        <nml:titulo>Outro título</nml:titulo>
+        <nml:data>2022/09/29</nml:data>
+        <nml:classificacao>3</nml:classificacao>
+        <nml:link>a</nml:link>
+    </nml:noticia>
+</p:noticias>

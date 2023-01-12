@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weather-forecast-reply region="pt-PT" date="2022-10-17">
+    <short-description>
+        a short description
+    </short-description>
+    <long-description>
+        a long long long long long long long long long long long long long description
+    </long-description>
+    <temperatures>
+        <temperature type="min">10</temperature>
+        <temperature type="max">20</temperature>
+    </temperatures>
+    <wind>
+        <direction>NW</direction>
+        <speed>20.3</speed>
+    </wind>
+    <sunshine-duration>13.2</sunshine-duration>
+</weather-forecast-reply>

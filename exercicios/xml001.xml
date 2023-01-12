@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fatura id="2">
+    <cabecalho>
+        <data>2022/09/26</data>
+        <cliente>
+            <nome>José</nome>
+            <morada>Av Dr. Sá Carneiro</morada>
+            <telefone>943748345</telefone>
+        </cliente>
+    </cabecalho>
+    <produtos>
+        <produto>
+            <designacao>Caneca</designacao>
+            <quantidade>3</quantidade>
+            <preco>23.4</preco>
+            <codigo>24</codigo>
+        </produto>
+        <produto>
+            <quantidade>2</quantidade>
+            <preco>12.3</preco>
+            <codigo>22</codigo>
+            <designacao>Guardanapo</designacao>
+        </produto>
+    </produtos>
+</fatura>

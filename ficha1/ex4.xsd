@@ -1,0 +1,22 @@
+<?xml version='1.0'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.ipv.pt/tdm/ai3/ex4" xmlns:ex4="http://www.ipv.pt/tdm/ai3/ex4" >
+    <xsd:element name="Employee_Info">
+        <xsd:complexType>
+            <xsd:choice minOccurs="1" maxOccurs="unbounded">
+                <xsd:element ref="ex4:Employee" />
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="Employee">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Name" type="xsd:string" />
+                <xsd:element name="Department" type="xsd:string" />
+                <xsd:element name="Telephone" type="xsd:string" />
+                <xsd:element name="Email" type="xsd:string" />
+                <xsd:element name="EmployeeNumber" type="xsd:positiveInteger" />
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

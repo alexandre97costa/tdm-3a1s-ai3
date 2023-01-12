@@ -1,0 +1,121 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Disciplinas",
+    "type": "object",
+    "properties": {
+        "escola": {
+            "type": "string",
+            "enum": [
+                "estgv",
+                "ess",
+                "esa"
+            ]
+        },
+        "telefone": {
+            "type": "integer"
+        },
+        "morada": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 50
+        },
+        "cursosDi": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": [
+                    "tdm",
+                    "ei",
+                    "msti",
+                    "rsi"
+                ],
+                "minItems": 2,
+                "maxItems": 2
+            }
+        },
+        "disciplinas": {
+            "type": "object",
+            "properties": {
+                "TDM": {
+                    "type": "object",
+                    "properties": {
+                        "1anoDi": {
+                            "type": "array",
+                            "items": {
+                                "oneOf": [
+                                    {
+                                        "type": "string",
+                                        "enum": [
+                                            "ADM1",
+                                            "API1",
+                                            "BD1"
+                                        ]
+                                    },
+                                    {
+                                        "type": "string",
+                                        "enum": [
+                                            "ID1",
+                                            "SI1",
+                                            "SD1"
+                                        ]
+                                    }
+                                ]
+                            }
+                        },
+                        "2anoDi": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "pattern": "[A-Za-z]+[0-9]+",
+                                "enum": [
+                                    "ADM2",
+                                    "API2",
+                                    "BD2",
+                                    "ID2",
+                                    "SI2",
+                                    "SD2"
+                                ],
+                                "maxItems": 2
+                            }
+                        },
+                        "3anoDi": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "enum": [
+                                    "ADM3",
+                                    "API3",
+                                    "BD3"
+                                ],
+                                "minItems": 2,
+                                "maxItems": 3
+                            }
+                        }
+                    }
+                },
+                "gestao": {
+                    "type": "object",
+                    "properties": {
+                        "diretor": {
+                            "type": "string"
+                        },
+                        "sala": {
+                            "type": "string"
+                        },
+                        "horario": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "diretor"
+                    ],
+                    "dependencies": {
+                        "sala": [
+                            "horario"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,57 @@
+function guardarPessoa(id_, nome_, morada_) {
+    let doc = document.implementation.createDocument(null, 'pessoas', null);
+    let pessoa = doc.createElement('pessoa')
+    pessoa.setAttribute('id', id_)
+    let nome = doc.createElement('nome')
+    let nomeValor = doc.createTextNode(nome_)
+    nome.appendChild(nomeValor)
+    let morada = doc.createElement('morada')
+    let moradaValor = doc.createTextNode(morada_)
+    morada.appendChild(moradaValor)
+    pessoa.appendChild(nome)
+    pessoa.appendChild(morada)
+    doc.documentElement.appendChild(pessoa)
+    let s = new XMLSerializer();
+    return s.serializeToString(doc);
+}
+
+function guardarPessoaAcrescentar(listapessoas, id_, nome_, morada_) {
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(listapessoas, 'text/xml');
+    let pessoa = doc.createElement('pessoa')
+    pessoa.setAttribute('id', id_)
+    let nome = doc.createElement('nome')
+    let nomeValor = doc.createTextNode(nome_)
+    nome.appendChild(nomeValor)
+    let morada = doc.createElement('morada')
+    let moradaValor = doc.createTextNode(morada_)
+    morada.appendChild(moradaValor)
+    pessoa.appendChild(nome)
+    pessoa.appendChild(morada)
+    doc.documentElement.appendChild(pessoa)
+    let s = new XMLSerializer();
+    return s.serializeToString(doc);
+}
+
+function pesquisaNomePorId(listapessoas, id_) {
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(listapessoas, 'text/xml');
+    let pessoa = doc.getElementById(id_)
+    let nome = pessoa?.children[0]?.textContent
+    return nome ?? ''
+}
+
+function pesquisaMoradaPorNome(listapessoas, nome_) {
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(listapessoas, 'text/xml');
+    let nomes = doc.getElementsByTagName('nome')
+    for (let i = 0; i < nomes.length; i++) {
+        const pessoa = nomes[i].parentElement;
+        let nome = pessoa?.children[0]?.textContent
+        let morada = pessoa?.children[1]?.textContent
+        if (nome === nome_) {
+            return morada
+        }
+    }
+    return ''
+}

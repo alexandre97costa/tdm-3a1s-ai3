@@ -1,0 +1,81 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Product",
+    "description": "A product from Acme's catalog",
+    "type": "object",
+    "properties": {
+        "nomeDisciplina": {
+            "type":"string",
+            "pattern": "Aplicacoes.[a-zA-Z0-9_]+"
+        },
+        "codigoDisciplina": {
+            "type":"string",
+            "enum":["12A", "13A", "14A", "34A", "40A"]
+        },
+        "detalhesDisciplina":{
+            "type": "object",
+            "properties": {
+                "docenteteoricas": {
+                    "type": "string",
+                    "pattern": "[A-Z][a-z].* [A-Z][a-z].*"
+                },
+                "numerototalAlunos": {
+                    "type": "number",
+                    "minimum": 15,
+                    "maximum": 25
+                },
+                "praticas": {
+                    "type": "object",
+                    "properties": {
+                        "TP1": {
+                            "type": "object",
+                            "properties": {
+                                "numeroInscritosTp1": {
+                                    "type": "number"
+                                },
+                                "docenteTp1": {
+                                    "type": "string",
+                                    "pattern": "[A-Z][a-z].* [A-Z][a-z].*",
+                                    "maxLength": 10
+                                }
+                            },
+                            "dependencies": {
+                                "numeroInscritosTp1":["docenteTp1"]
+                            }
+                        },
+                        "TP2": {
+                            "type": "object",
+                            "properties": {
+                                "numeroInscritosTp2": {
+                                    "type": "number"
+                                },
+                                "docenteTp2": {
+                                    "type": "string",
+                                    "pattern": "[A-Z][a-z].* [A-Z][a-z].*",
+                                    "minLength": 10
+                                }
+                            },
+                            "dependencies": {
+                                "numeroInscritosTp2":["docenteTp2"]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "numeroAluno": {
+            "type":"number",
+            "minimum": 15000,
+            "maximum": 45000
+        },
+        "data": {
+            "type":"string",
+            "enum":["08-10-2018", "09-10-2018", "18-11-2018"]
+        }
+    },
+    "required": [
+        "nomeDisciplina",
+        "codigoDisciplina",
+        "data"
+    ]
+}

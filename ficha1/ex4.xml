@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Employee_Info>
+    <Employee>
+        <Name>João Manel</Name>
+        <Department>Human Resources</Department>
+        <Telephone>+351 987 654 321</Telephone>
+        <Email>joao.manel@email.com</Email>
+        <EmployeeNumber>16611</EmployeeNumber>
+    </Employee>
+
+    <Employee>
+        <Name>Joaquim Barreiros</Name>
+        <Department>Engineering</Department>
+        <Telephone>+351 987 654 321</Telephone>
+        <Email>joaquim.barreiros@email.com</Email>
+        <EmployeeNumber>17711</EmployeeNumber>
+    </Employee>
+
+    <Employee>
+        <Name>José Afonso</Name>
+        <Department>Accounting</Department>
+        <Telephone>+351 987 654 321</Telephone>
+        <Email>jose.afonso@email.com</Email>
+        <EmployeeNumber>18811</EmployeeNumber>
+    </Employee>
+</Employee_Info>

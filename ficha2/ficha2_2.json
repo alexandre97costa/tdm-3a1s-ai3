@@ -1,0 +1,12 @@
+{
+    "billing_address": {
+        "street_address":"Street name 1",
+        "city":"Manhattan",
+        "state":"New York"
+    },
+    "shipping_address": {
+        "street_address":"Street name 2",
+        "city":"Newark",
+        "state":"New Jersey"
+    }
+}

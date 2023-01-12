@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<xsd:schema 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://www.ipv.pt/tdm/ai3/ex3" 
+    xmlns:ex3="http://www.ipv.pt/tdm/ai3/ex3">
+	<xsd:element name="Shape">
+		<xsd:complexType>
+			<xsd:choice minOccurs="1" maxOccurs="unbounded">
+				<xsd:element ref="ex3:Point" />
+			</xsd:choice>
+            <xsd:attribute name="Colour" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="Point">
+		<xsd:complexType>
+			<xsd:attribute name="x" type="xsd:integer" />
+			<xsd:attribute name="y" type="xsd:integer" />
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
