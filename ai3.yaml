@@ -1,0 +1,614 @@
+openapi: 3.0.3
+info:
+  title: Perishable Food Management - AI3
+  description: |-
+    Documentation of a server API for perishable food management. Based on the OpenAPI 3.0 specification.  You can find out more about
+    Swagger at [https://swagger.io](https://swagger.io).
+  version: 0.0.1
+servers:
+  - url: /
+tags:
+  - name: product
+    description: Everything about your products
+  - name: user
+    description: Operations related to users
+  - name: subscription
+    description: Access to user subscriptions to products
+paths:
+  /product:
+    post:
+      tags:
+        - product
+      summary: Add a new product
+      description: Add a new product        
+      operationId: add_product
+      requestBody:
+        description: Create a new product in the store
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          $ref: '#/components/responses/product_success'
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '405':
+          description: Invalid input
+    get: 
+      tags:
+        - product
+      summary: Retrieve all products
+      description: Retrieve all products from the database
+      operationId: get_all_products
+      responses:
+        '200':
+          $ref: '#/components/responses/product_success_array'
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+  /product/{id}:
+    get:
+      tags:
+        - product
+      summary: Find product by ID
+      description: Returns a single product
+      operationId: get_product_by_id
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          $ref: '#/components/responses/product_success' 
+        '400':
+          description: Invalid ID supplied
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '404':
+          description: Product not found
+    put:
+      tags:
+        - product
+      summary: Updates a product in the store
+      description: ''
+      operationId: update_product
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        description: Updates a product in the store
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          $ref: '#/components/responses/product_success'  
+        '400':
+          description: Invalid ID supplied
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '404':
+          description: Product not found
+        '405':
+          description: Invalid input
+    delete:
+      tags:
+        - product
+      summary: Deletes a product
+      description: delete a product
+      operationId: delete_product
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Successful operation  
+        '400':
+          description: Invalid ID supplied
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '404':
+          description: Product not found
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: Create a new user based on the provided object
+      operationId: create_user
+      requestBody:
+        description: Created user object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/user_success'
+        '400':
+          description: Invalid input
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+    get: 
+      tags:
+        - user
+      summary: Retrieve all users
+      description: Retrieve all users from the database
+      operationId: get_all_users
+      responses:
+        '200':
+          $ref: '#/components/responses/user_success_array'
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+  /user/login:
+    get:
+      tags:
+        - user
+      summary: Logs user into the system
+      description: ''
+      operationId: login_user
+      parameters:
+        - name: email
+          in: query
+          description: The user email for login
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Invalid username/password supplied
+  /user/logout:
+    get:
+      tags:
+        - user
+      summary: Logs out current logged in user session
+      description: ''
+      operationId: logout_user
+      parameters: []
+      responses:
+        default:
+          description: successful operation
+  /user/{id}:
+    get:
+      tags:
+        - user
+      summary: Get user by id
+      description: Retrieve a user by providing an id
+      operationId: get_user
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          $ref: '#/components/responses/user_success'
+        '400':
+          description: Invalid user id supplied
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '404':
+          description: User not found
+    put:
+      tags:
+        - user
+      summary: Update user
+      description: This can only be done by the logged in user.
+      operationId: update_user
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        description: Update an existent user in the store
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          $ref: '#/components/responses/user_success'  
+        '400':
+          description: Invalid ID supplied
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '404':
+          description: User not found
+        '405':
+          description: Invalid input
+    delete:
+      tags:
+        - user
+      summary: Delete user
+      description: Delete a user with the given id
+      operationId: delete_user
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Successful operation  
+        '400':
+          description: Invalid user id supplied
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '404':
+          description: User not found
+  /user/{id}/subscription:
+    post:
+      tags:
+      - user
+      - subscription
+      summary: Create a subscription
+      description: |
+        Create a subscription for a certain user to express interest in a single product
+      operationId: create_subscription
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        description: The product to be subscribed token
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId: 
+                  type: integer
+                  minimum: 0
+      responses:
+        '200':
+          $ref: '#/components/responses/subscription_success'
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '405':
+          description: Invalid input
+    get:
+      tags:
+      - user
+      - subscription
+      summary: Get user's subscription
+      description: |
+        Retrieve all subscription for a certain user
+      operationId: get_user_subscriptions
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: '#/components/responses/subscription_success_array'
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '405':
+          description: Invalid input
+  /category:
+    post:
+      tags:
+        - category
+      summary: Create category
+      description: Create a new category based on the provided object
+      operationId: create_category
+      requestBody: 
+        description: Created category object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          $ref: '#/components/responses/category_success'
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '405':
+          description: Invalid input
+    get:
+      tags:
+        - category
+      summary: Retrieve all product categories
+      description: Retrieve all categories available in the database
+      operationId: getallcategories
+      responses:
+        '200':
+          $ref: '#/components/responses/category_success_array'
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+  /category/{id}:
+    get:
+      tags:
+        - category
+      summary: Get category by id
+      description: Retrieve a category by providing an id
+      operationId: get_category
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          $ref: '#/components/responses/category_success'
+        '400':
+          description: Invalid category id supplied
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '404':
+          description: Category not found
+    put:
+      tags:
+        - category
+      summary: Update category
+      description: Upadte category with the given object
+      operationId: update_category
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        description: Update an existing category 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          $ref: '#/components/responses/category_success'
+        '400':
+          description: Invalid ID supplied
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '404':
+          description: Category not found
+        '405':
+          description: Invalid input
+    delete:
+      tags:
+        - category
+      summary: Delete category
+      description: Deete a category with the given id
+      operationId: delete_category
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          description: Successful operation  
+        '400':
+          description: Invalid category id supplied
+        '401':
+          $ref: '#/components/responses/unauthorized_error'
+        '404':
+          description: Category not found
+components:
+  parameters:
+    id:
+      in: path
+      name: id
+      schema:
+        type: integer
+        minimum: 1
+      required: true
+      description: Correspondes to any id, whether from a single user, a specific product, or a category
+  responses:
+    unauthorized_error:
+      description: Access token is missing or invalid
+    product_success:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            default: 'public, max-age=300' #5mins
+    product_success_array:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:  
+              $ref: '#/components/schemas/Product'
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            default: 'public, max-age=300' #5mins
+    user_success: 
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            default: 'public, max-age=300' #5mins
+    user_success_array:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:  
+              $ref: '#/components/schemas/User'
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            default: 'public, max-age=300' #5mins
+    category_success:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Category'
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            default: 'public, max-age=300' #5mins
+    category_success_array:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Category'
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            default: 'public, max-age=300' #5mins
+    subscription_success:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Subscription'
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            default: 'public, max-age=300' #5mins
+    subscription_success_array:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Subscription'
+      headers:
+        Cache-Control:
+          schema:
+            type: string
+            default: 'public, max-age=300' #5mins
+  schemas:
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          example: 437 Lytton
+        city:
+          type: string
+          example: Palo Alto
+        district:
+          type: string
+          example: CA
+        country:
+          type: string
+          example: Portugal
+        zip:
+          type: string
+          example: '94301'
+      xml:
+        name: address
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Fruit
+      xml:
+        name: category
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: Joaquim Barreiros
+        email:
+          type: string
+          example: joquim.b@email.com
+        password:
+          type: string
+          example: '12345'
+        phone:
+          type: string
+          example: '+351 987 654 321'
+        isManager:
+          type: boolean
+          example: false
+      xml:
+        name: customer
+    Product:
+      required:
+        - id
+        - name
+        - category
+        - status
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: banana
+        category:
+          $ref: '#/components/schemas/Category'
+        photoUrl:
+          type: string
+        status:
+          type: string
+          description: product status in the store
+          enum:
+            - available
+            - pending
+            - sold
+      xml:
+        name: product
+    Subscription:
+      required:
+        - id
+        - userid
+        - productid
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        userid:
+          $ref: '#/components/schemas/User'
+        productid:
+          $ref: '#/components/schemas/Product'
+      xml:
+        name: subscription
+  securitySchemes:
+    token:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - token: []
